@@ -124,7 +124,6 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 	private ButtonInterfaceNikita getAButton() {
 		return new Button();
 	}
-
 	private void changeText(String string) {
 		try{
 			label.setText(string);
