@@ -1,26 +1,22 @@
 package simon;
 
 import gui.GUIApplication;
-import gui.screens.MovementScreen;
 
 public class SimonGameNikita extends GUIApplication {
 
-	public static SimonGameNikita game;
-	public static SimonScreenNikita simonScreen;
-	
 	public SimonGameNikita(int width, int height) {
 		super(width, height);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initScreen() {
-		simonScreen = new MovementScreen(getWidth(), getHeight());
-		setScreen(simonScreen);
-
+		SimonScreenNikita s = new SimonScreenNikita(getWidth(), getHeight());
+		setScreen(s);
 	}
-	
+
 	public static void main(String[] args) {
-		game = new SimonGameNikita(800,600);
+		SimonGameNikita game = new SimonGameNikita(800, 500);
 		Thread app = new Thread(game);
 		app.start();
 	}
