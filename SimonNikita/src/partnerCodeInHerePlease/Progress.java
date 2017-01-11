@@ -18,4 +18,22 @@ public class Progress extends Component implements ProgressInterfaceNikita {
 
 	}
 
+	@Override
+	public void setRound(int roundNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSequenceLength(int size) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gameOver() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
