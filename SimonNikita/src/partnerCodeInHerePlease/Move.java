@@ -4,15 +4,15 @@ import simon.ButtonInterfaceNikita;
 import simon.MoveInterfaceNikita;
 
 public class Move implements MoveInterfaceNikita {
+	
+	private ButtonInterfaceNikita b;
 
-	public Move() {
-		// TODO Auto-generated constructor stub
+	public Move(ButtonInterfaceNikita b) {
+		this.b = b;
 	}
 
 	@Override
 	public ButtonInterfaceNikita getButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return b;
 	}
-
 }
