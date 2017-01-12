@@ -41,19 +41,16 @@ public class Progress extends Component implements ProgressInterfaceNikita {
 		}
 	}
 
-	@Override
 	public void setRound(int roundNumber) {
 		round = "Round "+roundNumber;
 		update();
 	}
 
-	@Override
 	public void setSequenceLength(int size) {
 		sequence = "Sequence length "+size;
 		update();
 	}
 
-	@Override
 	public void gameOver() {
 		isGameOver = true;
 		update();

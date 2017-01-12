@@ -11,7 +11,6 @@ public class Move implements MoveInterfaceNikita {
 		this.b = b;
 	}
 
-	@Override
 	public ButtonInterfaceNikita getButton() {
 		return b;
 	}

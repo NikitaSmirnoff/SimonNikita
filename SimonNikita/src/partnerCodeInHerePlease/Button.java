@@ -22,12 +22,10 @@ public class Button extends Component implements ButtonInterfaceNikita {
 		super(0, 0, 50, 50);
 	}
 
-	@Override
 	public void act() {
 		action.act();
 	}
 
-	@Override
 	public boolean isHovered(int x, int y) {
 		double distance = Math.sqrt(Math.pow(x-(getX()+25), 2)+Math.pow(y-(getY()+25), 2));
 		return distance < 25;
@@ -58,13 +56,11 @@ public class Button extends Component implements ButtonInterfaceNikita {
 		}
 	}
 
-	@Override
 	public void setColor(Color color) {
 		c = color;
 		update();
 	}
 
-	@Override
 	public void highlight() {
 		if(c != null){
 			isHighlighted = true;
@@ -72,29 +68,24 @@ public class Button extends Component implements ButtonInterfaceNikita {
 		}
 	}
 
-	@Override
 	public void dim() {
 		c = Color.gray;
 		isHighlighted = false;
 		update();
 	}
 
-	@Override
 	public void setAction(Action action) {
 		this.action = action;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@Override
 	public void setX(int i) {
 		this.x = i;
 	}
 
-	@Override
 	public void setY(int i) {
 		this.y = i;
 	}
