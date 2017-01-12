@@ -8,6 +8,9 @@ import gui.components.Action;
 import gui.components.TextLabel;
 import gui.components.Visible;
 import gui.screens.ClickableScreen;
+import partnerCodeInHerePlease.Button;
+import partnerCodeInHerePlease.Move;
+import partnerCodeInHerePlease.Progress;
 
 public class SimonScreenNikita extends ClickableScreen implements Runnable{
 
