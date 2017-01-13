@@ -23,9 +23,9 @@ public class Progress extends Component implements ProgressInterfaceNikita {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		FontMetrics fm = g.getFontMetrics();
 		if(isGameOver){
-			g.setColor(new Color(255,55,90));
-			g.fillRect(0, 0, 120, 50);
 			g.setColor(Color.white);
+			g.fillRect(0, 0, 120, 50);
+			g.setColor(Color.black);
 			String go = "GAME OVER!";
 			g.drawString(go, (120 - fm.stringWidth(go))/2, 20);
 			g.drawString(sequence, (120 - fm.stringWidth(sequence))/2, 40);
