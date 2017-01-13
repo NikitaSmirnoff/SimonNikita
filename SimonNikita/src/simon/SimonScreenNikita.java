@@ -70,9 +70,9 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), Color.yellow};
-		String[] names = {"RED", "BLUE", "ORANGE", "YELLOW"};
-		int buttonCount = 4;
+		Color[] colors = {Color.red, Color.blue, Color.black, Color.yellow, Color.cyan};
+		String[] names = {"RED", "BLUE", "BLACK", "YELLOW", "CYAN"};
+		int buttonCount = 5;
 		buttons = new ButtonInterfaceNikita[buttonCount];
 		for(int i = 0; i < buttonCount; i++ ){
 			buttons[i] = getAButton();
