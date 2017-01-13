@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.components.Action;
-import gui.components.TextLabel;
-import gui.components.Visible;
-import gui.screens.ClickableScreen;
+import gui6.ClickableScreen;
+import gui6.components.Action;
+import gui6.components.TextLabel;
+import gui6.components.Visible;
 import partnerCodeInHerePlease.Button;
 import partnerCodeInHerePlease.Move;
 import partnerCodeInHerePlease.Progress;
@@ -25,45 +25,78 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 
 	public SimonScreenNikita(int width, int height) {
 		super(width, height);
-		Thread screen = new Thread(this);
-		screen.start();
+		Thread play = new Thread(this);
+		play.start();
+	}
+
+	@Override
+	public void run() {
+		label.setText("");
+	    nextRound();
+	}
+
+	private void nextRound() {
+		acceptingInput = false;
+		roundNumber ++;
+		progress.setRound(roundNumber);
+		sequence.add(randomMove());
+		progress.setSequenceLength(sequence.size());
+		changeText("Simon's turn.");
+		label.setText("");
+		playSequence();
+		changeText("Your turn.");
+		label.setText("");
+		acceptingInput = true;
+		sequenceIndex = 0;
+	}
+
+	private void playSequence() {
+		ButtonInterfaceNikita b = null;
+		for(MoveInterfaceNikita m: sequence){
+			if(b!=null){
+				b.dim();
+			}
+			b = m.getButton();
+			b.highlight();
+			int sleepTime = (int)(2000*(2.0/(roundNumber+2)));
+			try {
+				Thread.sleep((long)sleepTime);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		b.dim();
 	}
 
 	public void initAllObjects(List<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
-		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
-		int buttonCount = 6;
+		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), Color.yellow};
+		String[] names = {"RED", "BLUE", "ORANGE", "YELLOW"};
+		int buttonCount = 4;
 		buttons = new ButtonInterfaceNikita[buttonCount];
 		for(int i = 0; i < buttonCount; i++ ){
 			buttons[i] = getAButton();
 			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
-			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(buttonCount))));
-			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
+			buttons[i].setX(100 + (i *50));
+			buttons[i].setY(200);
 			final ButtonInterfaceNikita b = buttons[i];
-			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
 			b.dim();
 			buttons[i].setAction(new Action() {
-
 				public void act() {
-
-						Thread buttonPress = new Thread(new Runnable() {
-							
+					if(acceptingInput){
+						Thread blink = new Thread(new Runnable() {
 							public void run() {
 								b.highlight();
 								try {
-									Thread.sleep(500);
+									Thread.sleep(800);
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
 								b.dim();
-								
 							}
 						});
-						buttonPress.start();
-						
-
-						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
+						blink.start();
+						if(sequence.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}else if(acceptingInput){
 							gameOver();
@@ -74,42 +107,21 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 							nextRound.start();
 						}
 					}
-
+				}
 			});
 			viewObjects.add(buttons[i]);
 		}
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
+		label = new TextLabel(180,30,300,40,"Let's play Simon!");
 		sequence = new ArrayList<MoveInterfaceNikita>();
 		//add 2 moves to start
 		lastSelected = -1;
 		sequence.add(randomMove());
 		sequence.add(randomMove());
 		roundNumber = 0;
-
 		viewObjects.add(progress);
 		viewObjects.add(label);
 	}
-
-	public void gameOver() {
-		progress.gameOver();
-	}
-
-	public void nextRound() {
-		acceptingInput = false;
-		roundNumber ++;
-		progress.setRound(roundNumber);
-		sequence.add(randomMove());
-		progress.setSequenceLength(sequence.size());
-		changeText("Simon's turn.");
-		label.setText("");
-		showSequence();
-		changeText("Your turn.");
-		label.setText("");
-		acceptingInput = true;
-		sequenceIndex = 0;
-	}
-
 
 	private MoveInterfaceNikita randomMove() {
 		int select = (int) (Math.random()*buttons.length);
@@ -123,50 +135,22 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 	private ProgressInterfaceNikita getProgress() {
 		return new Progress();
 	}
+	
+	private void gameOver() {
+		progress.gameOver();
+	}
 
 	private ButtonInterfaceNikita getAButton() {
 		return new Button();
 	}
+
 	private void changeText(String string) {
-		try{
-			label.setText(string);
+		label.setText(string);
+		try {
 			Thread.sleep(1000);
-		}catch(Exception e){
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	public void run() {
-		changeText("");
-//		while(true){
-			nextRound();
-//			synchronized (this) {
-//
-//				try {
-//					wait();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//			}
-//		}
-	}
-
-
-	private void showSequence() {
-		ButtonInterfaceNikita b = null;
-		for(MoveInterfaceNikita m: sequence){
-			if(b!=null)b.dim();
-			b = m.getButton();
-			b.highlight();
-			try {
-				Thread.sleep((long)(2000*(2.0/(roundNumber+2))));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		b.dim();
-	}
-
 }

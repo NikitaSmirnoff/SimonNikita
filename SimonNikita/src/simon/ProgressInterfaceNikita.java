@@ -1,6 +1,6 @@
 package simon;
 
-import gui.components.Visible;
+import gui6.components.Visible;
 
 public interface ProgressInterfaceNikita extends Visible{
 
