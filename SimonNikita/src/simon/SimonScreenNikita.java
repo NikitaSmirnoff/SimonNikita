@@ -68,6 +68,7 @@ public class SimonScreenNikita extends ClickableScreen implements Runnable{
 		b.dim();
 	}
 
+	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), Color.yellow};
 		String[] names = {"RED", "BLUE", "ORANGE", "YELLOW"};
